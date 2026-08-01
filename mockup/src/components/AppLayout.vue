@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { RouterLink, RouterView, useRoute } from 'vue-router'
+import { ref, computed } from "vue";
+import { RouterLink, RouterView, useRoute } from "vue-router";
 import {
   LayoutDashboard,
   Users,
@@ -14,78 +14,80 @@ import {
   PanelLeftOpen,
   FileText,
   TableProperties,
-  LogIn
+  LogIn,
   ChevronDown,
   Handshake,
   FlaskConical,
   LogOut,
-} from '@lucide/vue'
-import AvatarInitials from './ui/AvatarInitials.vue'
-import ToastContainer from './ui/ToastContainer.vue'
-import { useRouter } from 'vue-router'
+} from "@lucide/vue";
+import AvatarInitials from "./ui/AvatarInitials.vue";
+import ToastContainer from "./ui/ToastContainer.vue";
+import { useRouter } from "vue-router";
 
-const route = useRoute()
-const router = useRouter()
-const sidebarOpen = ref(false)
-const sidebarCollapsed = ref(false)
+const route = useRoute();
+const router = useRouter();
+const sidebarOpen = ref(false);
+const sidebarCollapsed = ref(false);
 
 // Track open submenus
 const openMenus = ref<Record<string, boolean>>({
   partnerships: true,
   demos: false,
-})
+});
 
 function toggleMenu(key: string) {
-  openMenus.value[key] = !openMenus.value[key]
+  openMenus.value[key] = !openMenus.value[key];
 }
 
 const navItems = [
   {
-    name: 'Dashboard',
-    to: '/',
+    name: "Dashboard",
+    to: "/",
     icon: LayoutDashboard,
     single: true,
   },
   {
-    key: 'partnerships',
-    name: 'Partnerships',
+    key: "partnerships",
+    name: "Partnerships",
     icon: Handshake,
     single: false,
     children: [
-      { name: 'Referrals', to: '/referrals', icon: Users },
-      { name: 'Payouts & Billing', to: '/payouts', icon: Wallet },
+      { name: "Referrals", to: "/referrals", icon: Users },
+      { name: "Payouts & Billing", to: "/payouts", icon: Wallet },
     ],
   },
   {
-    key: 'demos',
-    name: 'UI Demos',
+    key: "demos",
+    name: "UI Demos",
     icon: FlaskConical,
     single: false,
     children: [
-      { name: 'Form Examples', to: '/form-example', icon: FileText },
-      { name: 'Data Grid', to: '/grid-example', icon: TableProperties },
-      { name: 'Login', to: '/login', icon: LogIn },
+      { name: "Form Examples", to: "/form-example", icon: FileText },
+      { name: "Data Grid", to: "/grid-example", icon: TableProperties },
+      { name: "Login", to: "/login", icon: LogIn },
     ],
   },
-]
+];
 
 function isChildActive(children: { to: string }[]) {
-  return children.some((c) => route.path === c.to)
+  return children.some((c) => route.path === c.to);
 }
 
-const sidebarWidth = computed(() => (sidebarCollapsed.value ? 'w-20' : 'w-64'))
-const contentPadding = computed(() => (sidebarCollapsed.value ? 'lg:pl-20' : 'lg:pl-64'))
+const sidebarWidth = computed(() => (sidebarCollapsed.value ? "w-20" : "w-64"));
+const contentPadding = computed(() =>
+  sidebarCollapsed.value ? "lg:pl-20" : "lg:pl-64",
+);
 
 function closeSidebar() {
-  sidebarOpen.value = false
+  sidebarOpen.value = false;
 }
 
 function toggleCollapse() {
-  sidebarCollapsed.value = !sidebarCollapsed.value
+  sidebarCollapsed.value = !sidebarCollapsed.value;
 }
 
 function signOut() {
-  router.push('/login')
+  router.push("/login");
 }
 </script>
 
